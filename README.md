@@ -1,4 +1,4 @@
-microphone-js
-=============
+microphone
+==========
 
-Tiny library to process live audio input in the browser
+Tiny coffeescript/javascript library to process live audio input in the browser
