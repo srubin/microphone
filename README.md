@@ -18,9 +18,7 @@ A Microphone object takes two parameters- settings and a callback.
       the data in the next callback). *(default: 0. Must be between 0
       and 1, inclusive)*
     * `channels`: 1 (mono) or 2 (stereo) *(default: 1)*
-* `callback`: A function that takes an array with dimensions `2x(unit
-  * recording sample rate)` if stereo, and just `(unit * recording
-  sample rate)` if mono.
+* `callback`: A function that takes an array with dimensions `2x(unit * recording sample rate)` if stereo, and just `(unit * recording sample rate)` if mono.
 
 Usage
 -----
