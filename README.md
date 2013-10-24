@@ -7,7 +7,7 @@ the browser.
 I created this to make it easy to perform arbitrary computations using
 raw, streaming audio data.
 
-A Microphone object takes two parameters- settings and a callback.
+A `Microphone` object takes two parameters- settings and a callback.
 
 * `settings`:
     * `unit`: the length (in seconds) of audio to return in each callback
