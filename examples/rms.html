@@ -1,0 +1,25 @@
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+
+  <title>Microphone.js RMS energy example</title>
+</head>
+<body>
+
+<p>RMS energy: <span class="rms"></span></p>
+    
+<script src="../microphone.js"></script>
+<script>
+mic = new Microphone({
+    unit: .5,
+    overlap: .5
+}, function (data) {
+    v = data.map(function (d) { return d * d; });
+    v = v.reduce(function (t, s) { return t + s; });
+    v = Math.sqrt(v / data.length);
+    document.querySelector('.rms').innerHTML = v;
+})
+</script>
+
+</body>
+</html>
