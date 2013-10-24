@@ -94,7 +94,9 @@
       var e;
       try {
         navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        return navigator.getMedia(dictionary, callback);
+        return navigator.getMedia(dictionary, callback, function(err) {
+          return console.log("The following error occured: " + err);
+        });
       } catch (_error) {
         e = _error;
         throw "Could not getMedia";

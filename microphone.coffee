@@ -76,7 +76,8 @@ class Microphone
                 navigator.mozGetUserMedia ||
                 navigator.msGetUserMedia
 
-            navigator.getMedia dictionary, callback
+            navigator.getMedia dictionary, callback, (err) ->
+                console.log("The following error occured: " + err);
         catch e
             throw "Could not getMedia"
 

@@ -2,7 +2,7 @@ microphone
 ==========
 
 Tiny coffeescript/javascript library to process live audio input in
-the browser.
+the browser. Right now, this only works in Chrome.
 
 I created this to make it easy to perform arbitrary computations using
 raw, streaming audio data.
