@@ -1,5 +1,6 @@
 (function() {
   var Microphone,
+    audioContext = new (window.AudioContext || window.webkitAudioContext),
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Microphone = (function() {
@@ -26,8 +27,7 @@
     }
 
     Microphone.prototype.gotStream = function(stream) {
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      this.audioContext = new AudioContext();
+      this.audioContext = audioContext;
       this.bufLength = this.length * this.audioContext.sampleRate;
       this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
       window.microphoneProcessingNode = this.createNode();
