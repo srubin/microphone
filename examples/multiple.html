@@ -2,15 +2,17 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Microphone.js RMS energy example</title>
+  <title>Microphone.js multiple instances example</title>
 </head>
 <body>
 
 <p>RMS energy: <span class="rms"></span></p>
+
+<p>Raw samples: <span class="sample"></span></p>
     
 <script src="../microphone.js"></script>
 <script>
-var mic = new Microphone({
+var mic1 = new Microphone({
     unit: .5,
     overlap: .5
 }, function (data) {
@@ -18,6 +20,13 @@ var mic = new Microphone({
     v = v.reduce(function (t, s) { return t + s; });
     v = Math.sqrt(v / data.length);
     document.querySelector('.rms').innerHTML = v;
+});
+
+var mic2 = new Microphone({
+    unit: .25,
+    overlap: .5
+}, function (data) {
+    document.querySelector('.sample').innerHTML = data[0];
 });
 </script>
 

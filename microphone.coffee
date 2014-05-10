@@ -1,4 +1,6 @@
 class Microphone
+    @audioContext: new (window.AudioContext || window.webkitAudioContext)
+
     constructor: (dict, @callback) ->
         @length = dict.length || 1
         @overlap = dict.overlap || 0
@@ -17,8 +19,7 @@ class Microphone
         @getUserMedia audio:true, @gotStream
 
     gotStream: (stream) =>
-        window.AudioContext = window.AudioContext || window.webkitAudioContext
-        @audioContext = new AudioContext()
+        @audioContext = @constructor.audioContext
 
         @bufLength = @length * @audioContext.sampleRate
 

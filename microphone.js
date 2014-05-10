@@ -3,6 +3,8 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Microphone = (function() {
+    Microphone.audioContext = new (window.AudioContext || window.webkitAudioContext);
+
     function Microphone(dict, callback) {
       this.callback = callback;
       this.createNode = __bind(this.createNode, this);
@@ -26,8 +28,7 @@
     }
 
     Microphone.prototype.gotStream = function(stream) {
-      window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      this.audioContext = new AudioContext();
+      this.audioContext = this.constructor.audioContext;
       this.bufLength = this.length * this.audioContext.sampleRate;
       this.mediaStreamSource = this.audioContext.createMediaStreamSource(stream);
       window.microphoneProcessingNode = this.createNode();
@@ -36,21 +37,22 @@
     };
 
     Microphone.prototype.createNode = function() {
-      var node,
-        _this = this;
+      var node;
       node = this.audioContext.createJavaScriptNode(this.bufferSize, 2, 2);
-      node.onaudioprocess = function(e) {
-        var left, outBuffer, right;
-        left = e.inputBuffer.getChannelData(0);
-        right = e.inputBuffer.getChannelData(1);
-        _this.bufL.push(new Float32Array(left));
-        _this.bufR.push(new Float32Array(right));
-        _this.total += _this.bufferSize;
-        if (_this.total > _this.bufLength) {
-          outBuffer = _this.prepareBuffer();
-          return _this.callback(outBuffer);
-        }
-      };
+      node.onaudioprocess = (function(_this) {
+        return function(e) {
+          var left, outBuffer, right;
+          left = e.inputBuffer.getChannelData(0);
+          right = e.inputBuffer.getChannelData(1);
+          _this.bufL.push(new Float32Array(left));
+          _this.bufR.push(new Float32Array(right));
+          _this.total += _this.bufferSize;
+          if (_this.total > _this.bufLength) {
+            outBuffer = _this.prepareBuffer();
+            return _this.callback(outBuffer);
+          }
+        };
+      })(this);
       return node;
     };
 
