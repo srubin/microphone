@@ -38,7 +38,7 @@
 
     Microphone.prototype.createNode = function() {
       var node;
-      node = this.audioContext.createJavaScriptNode(this.bufferSize, 2, 2);
+      node = (this.audioContext.createScriptProcessor || this.audioContext.createJavaScriptNode)(this.bufferSize, 2, 2);
       node.onaudioprocess = (function(_this) {
         return function(e) {
           var left, outBuffer, right;
