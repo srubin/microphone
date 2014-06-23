@@ -33,7 +33,7 @@ class Microphone
         window.microphoneProcessingNode.connect @audioContext.destination
 
     createNode: =>
-        node = @audioContext.createJavaScriptNode @bufferSize, 2, 2
+        node = (@audioContext.createScriptProcessor || @audioContext.createJavaScriptNode) @bufferSize, 2, 2
         node.onaudioprocess = (e) =>
             left = e.inputBuffer.getChannelData(0)
             right = e.inputBuffer.getChannelData(1)
